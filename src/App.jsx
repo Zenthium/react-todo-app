@@ -1,16 +1,19 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import AppContextProvider from "./contexts/AppContext";
+import SideDrawer from "./components/SideDrawer";
 
 function App() {
   return (
     <div className="App">
       <AppContextProvider>
-        <header>
-          <Navbar />
-        </header>
+        <SideDrawer />
+        <div className="todoContent">
+          <header>
+            <Navbar />
+          </header>
+        </div>
       </AppContextProvider>
     </div>
   );
