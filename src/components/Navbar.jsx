@@ -12,7 +12,7 @@ const Navbar = () => {
           <Typography
             variant="title"
             color="inherit"
-            style={{ padding: 0 + "px " + 10 + "px" }}
+            style={{ padding: `${0  }px ${  10  }px` }}
           >
             Todoer v2
           </Typography>
