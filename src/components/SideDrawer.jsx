@@ -11,10 +11,12 @@ const SideDrawer = () => {
     <EuiPanel hasShadow>
       <div className="sidebar">
         <Typography
-          variant="h3"
+          variant="h4"
           style={{
             borderBottom: `${1}px solid rgb(50, 50, 50)`,
-            marginBottom: `${20}px`
+            marginBottom: `${10}px`,
+            paddingTop: `${15}px`,
+            paddingBottom: `${10}px`
           }}
         >
           Project List
@@ -22,10 +24,12 @@ const SideDrawer = () => {
         {projects.map(project => {
           return (
             <Button
-              variant={project.toggled ? "contained" : ""}
-              onClick={project => {
+              variant={project.toggled ? "contained" : "outlined"}
+              onClick={() => {
                 changeProjectStatus(project);
               }}
+              color="primary"
+              style={{ marginBottom: `${15}px` }}
             >
               {project.name}
             </Button>
@@ -37,10 +41,6 @@ const SideDrawer = () => {
           // );
         })}
       </div>
-      {/* <div className="sidebar">{projects.map(project => {
-        return {<EuiButtonToggle label={project.name}>
-        </EuiButtonToggle>}
-      })}</div> */}
     </EuiPanel>
   );
 };

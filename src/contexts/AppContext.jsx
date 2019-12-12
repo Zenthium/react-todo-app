@@ -17,6 +17,18 @@ class AppContextProvider extends Component {
             completed: false
           }
         ]
+      },
+      {
+        name: "Default Project Two",
+        toggled: false,
+        todos: [
+          {
+            name: "Default Todo",
+            dueDate: "12-11-2019",
+            priority: 1,
+            completed: false
+          }
+        ]
       }
     ]
   }
@@ -24,7 +36,7 @@ class AppContextProvider extends Component {
   changeProjectStatus = project => {
     const currentProjects = [...this.state.projects];
     for (let i = 0; i < currentProjects.length; i++){
-      if (currentProjects[i].toggled){
+      if (currentProjects[i].toggled && currentProjects[i] !== project){
         currentProjects[i].toggled = false;
       }
     }
