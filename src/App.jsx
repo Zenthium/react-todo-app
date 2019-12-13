@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
-import AppContextProvider from "./contexts/AppContext";
+import AppContextProvider, { AppContext } from "./contexts/AppContext";
 import SideDrawer from "./components/SideDrawer";
+import TodoList from "./components/todolistcomponents/TodoList";
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
           <header>
             <Navbar />
           </header>
+          {/* <div>
+            <TodoList />
+          </div> */}
         </div>
       </AppContextProvider>
     </div>

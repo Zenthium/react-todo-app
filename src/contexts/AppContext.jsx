@@ -53,6 +53,14 @@ class AppContextProvider extends Component {
     })
   }
 
+  getCurrentToggledProject = () => {
+    for (let i = 0; i < this.state.projects.length; i++){
+      if (this.state.projects[i].toggled){
+        return this.state.projects[i]
+      }
+    }
+  }
+
   addNewProject = projectName => {
     const newProject = {name: projectName, todos: []}
     this.setState(prevState => {
@@ -63,7 +71,7 @@ class AppContextProvider extends Component {
   }
   render() { 
     return ( 
-      <AppContext.Provider value={{...this.state, addNewProject: this.addNewProject, changeProjectStatus:this.changeProjectStatus}}>
+      <AppContext.Provider value={{...this.state, addNewProject: this.addNewProject, changeProjectStatus:this.changeProjectStatus, getCurrentToggledProject:this.getCurrentToggledProject}}>
         {this.props.children}
       </AppContext.Provider>
      );
