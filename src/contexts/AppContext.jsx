@@ -8,7 +8,7 @@ class AppContextProvider extends Component {
     projects: [
       {
         name: "Default Project",
-        toggled: false,
+        toggled: true,
         todos: [
           {
             name: "Default Todo",
@@ -41,7 +41,9 @@ class AppContextProvider extends Component {
       }
     }
     const projectIndex = currentProjects.indexOf(project);
-    currentProjects[projectIndex].toggled = !currentProjects[projectIndex].toggled;
+    if (!currentProjects[projectIndex].toggled){
+      currentProjects[projectIndex].toggled = !currentProjects[projectIndex].toggled;
+    }
     this.setState({
       projects: currentProjects
     })

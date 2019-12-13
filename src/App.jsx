@@ -14,9 +14,9 @@ function App() {
           <header>
             <Navbar />
           </header>
-          {/* <div>
+          <div>
             <TodoList />
-          </div> */}
+          </div>
         </div>
       </AppContextProvider>
     </div>
