@@ -147,6 +147,22 @@ class AppContextProvider extends Component {
     })
   }
 
+  handleRemoveProject = (project) => {
+    const currentProjects = [...this.state.projects];
+    const currentProjectIndex = currentProjects.indexOf(project);
+    if (currentProjects[currentProjectIndex + 1]) {
+      currentProjects[currentProjectIndex + 1].toggled = true;
+    } else if (currentProjects[currentProjectIndex - 1]) {
+      currentProjects[currentProjectIndex - 1].toggled = true;
+    } else {
+      return;
+    }
+    let newProjectArray = currentProjects.filter(currentProject => currentProject !== project);
+    this.setState({
+      projects: newProjectArray
+    })
+  }
+
 
   render() { 
     return ( 
@@ -159,7 +175,8 @@ class AppContextProvider extends Component {
         toggleFormatted: this.toggleFormatted,
         addNewTodo: this.addNewTodo,
         handleRemoveTodo: this.handleRemoveTodo,
-        addNewProject: this.addNewProject}}
+        addNewProject: this.addNewProject,
+        removeProject: this.handleRemoveProject}}
       >
         {this.props.children}
       </AppContext.Provider>

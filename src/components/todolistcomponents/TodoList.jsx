@@ -21,7 +21,8 @@ const TodoList = () => {
     formatTodoDates,
     addNewTodo,
     toggleFormatted,
-    handleRemoveTodo
+    handleRemoveTodo,
+    removeProject
   } = useContext(AppContext);
   const [formShowing, setFormShowing] = useState(false);
   const [formTodoName, setFormTodoName] = useState("");
@@ -112,9 +113,16 @@ const TodoList = () => {
         <Button
           variant="outlined"
           style={{ color: "red", borderColor: "red", marginLeft: `${1}%` }}
+          onClick={() => {
+            removeProject(getCurrentToggledProject());
+          }}
         >
           Remove Project
         </Button>
+        <br />
+        <Typography variant="caption" style={{ color: "red" }}>
+          You must have atleast one project at all times.
+        </Typography>
       </Typography>
       <div className="newTodoDiv">
         <Button
