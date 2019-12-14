@@ -214,7 +214,6 @@ const TodoList = () => {
                   </div>
                 </div>
                 <div className="editAndRemoveButtons">
-                  <Button>Edit Todo</Button>
                   <Button
                     onClick={() => {
                       handleRemoveTodo(getCurrentToggledProject(), todo);
