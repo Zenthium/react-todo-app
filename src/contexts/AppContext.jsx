@@ -23,7 +23,7 @@ class AppContextProvider extends Component {
         toggled: false,
         todos: [
           {
-            name: "Default Todo",
+            name: "Default Todo Two",
             dueDate: "12-11-2019",
             priority: 1,
             completed: false
