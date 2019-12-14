@@ -88,6 +88,14 @@ const TodoList = () => {
     setFormShowing(false);
   };
 
+  // remove todo form when cancel button is clicked
+  const cancelTodoForm = () => {
+    setFormShowing(false);
+    setFormTodoPriority(0);
+    setFormTodoName("");
+    setTodoDate(new Date());
+  };
+
   return (
     <div>
       <Typography
@@ -138,8 +146,19 @@ const TodoList = () => {
                 onChange={handleTodoPriorityChange}
                 required
               />
-              <Button type="submit" variant="outlined">
+              <Button
+                type="submit"
+                variant="outlined"
+                style={{ marginBottom: `${1}%` }}
+              >
                 Create New Todo
+              </Button>
+              <Button
+                variant="outlined"
+                style={{ color: "red", borderColor: "red" }}
+                onClick={cancelTodoForm}
+              >
+                Cancel
               </Button>
             </form>
           </FormControl>
