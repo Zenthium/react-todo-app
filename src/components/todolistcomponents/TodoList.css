@@ -2,3 +2,19 @@
   padding-left: 4%;
   padding-right: 4%;
 }
+
+.todoInfo {
+  display: flex;
+  flex-direction: column;
+  margin-right: 80%;
+}
+
+.todoBoxes {
+  display: flex;
+  flex-direction: row;
+}
+
+/* .todoContent {
+  display: flex;
+  flex-direction: row;
+} */

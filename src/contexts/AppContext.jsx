@@ -12,7 +12,13 @@ class AppContextProvider extends Component {
         todos: [
           {
             name: "Default Todo",
-            dueDate: "12-11-2019",
+            dueDate: "12/11/2019",
+            priority: 1,
+            completed: false
+          },
+          {
+            name: "Default Todo Two",
+            dueDate: "12/11/2019",
             priority: 1,
             completed: false
           }
@@ -24,7 +30,7 @@ class AppContextProvider extends Component {
         todos: [
           {
             name: "Default Todo Two",
-            dueDate: "12-11-2019",
+            dueDate: "12/11/2019",
             priority: 1,
             completed: false
           }
@@ -71,9 +77,25 @@ class AppContextProvider extends Component {
       })
     })
   }
+
+  toggleTodoCompletion = (project, todo) => {
+    const currentProjects = [...this.state.projects]
+    const selectedProjectIndex = currentProjects.indexOf(project);
+    const selectedProject = currentProjects[selectedProjectIndex];
+    const selectedTodoIndex = selectedProject.todos.indexOf(todo);
+    selectedProject.todos[selectedTodoIndex].completed = !selectedProject.todos[selectedTodoIndex].completed;
+    this.setState({
+      projects: currentProjects
+    })
+  }
   render() { 
     return ( 
-      <AppContext.Provider value={{...this.state, addNewProject: this.addNewProject, changeProjectStatus:this.changeProjectStatus, getCurrentToggledProject:this.getCurrentToggledProject}}>
+      <AppContext.Provider value={{...this.state, 
+        addNewProject: this.addNewProject, 
+        changeProjectStatus:this.changeProjectStatus, 
+        getCurrentToggledProject:this.getCurrentToggledProject, 
+        toggleTodoCompletion: this.toggleTodoCompletion}}
+      >
         {this.props.children}
       </AppContext.Provider>
      );
