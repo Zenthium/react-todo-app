@@ -7,6 +7,19 @@ const TodoList = project => {
   const { getCurrentToggledProject, toggleTodoCompletion } = useContext(
     AppContext
   );
+
+  const formatTodoIfCompleted = (todo, part) => {
+    if (todo.completed) {
+      if (part === "header") {
+        return <strike>{todo.name}</strike>;
+      }
+      return <strike>{todo.dueDate}</strike>;
+    }
+    if (part === "header") {
+      return todo.name;
+    }
+    return todo.dueDate;
+  };
   // const currentProject = getCurrentToggledProject();
   // return <h1>{getCurrentToggledProject().name}</h1>;
   return (
@@ -43,9 +56,11 @@ const TodoList = project => {
                 </div>
                 <div className="todoInfo">
                   <Typography variant="h6" fontWeight="fontWeightBold">
-                    {todo.name}
+                    {formatTodoIfCompleted(todo, "header")}
                   </Typography>
-                  <Typography variant="subtitle1">{todo.dueDate}</Typography>
+                  <Typography variant="subtitle1" align="left">
+                    {formatTodoIfCompleted(todo, "info")}
+                  </Typography>
                 </div>
               </div>
             </Box>
