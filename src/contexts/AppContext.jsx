@@ -14,7 +14,7 @@ class AppContextProvider extends Component {
             name: "Default Todo",
             dueDate: "12/11/2019",
             priority: 1,
-            completed: false
+            completed: true
           },
           {
             name: "Default Todo Two",

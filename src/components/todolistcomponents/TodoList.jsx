@@ -35,7 +35,7 @@ const TodoList = project => {
               <div className="todoBoxes">
                 <div className="todoCheckbox">
                   <Checkbox
-                    value={todo.completed}
+                    checked={todo.completed}
                     onChange={() => {
                       toggleTodoCompletion(getCurrentToggledProject(), todo);
                     }}
