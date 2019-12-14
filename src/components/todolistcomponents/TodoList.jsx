@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import DateFnsUtils from "@date-io/date-fns";
 import {
   Typography,
   Box,
@@ -8,8 +9,10 @@ import {
   FormControl,
   FormHelperText
 } from "@material-ui/core";
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { AppContext } from "../../contexts/AppContext";
 import "./TodoList.css";
+import { format } from "date-fns";
 
 const TodoList = () => {
   const {
@@ -18,7 +21,15 @@ const TodoList = () => {
     formatTodoDates
   } = useContext(AppContext);
   const [formShowing, setFormShowing] = useState(false);
+  const [formTodoName, setFormTodoName] = useState("");
+  const [formTodoPriority, setFormTodoPriority] = useState(0);
+  const [todoDate, setTodoDate] = useState(new Date());
+  const [formattedTodoDate, setFormattedTodoDate] = useState("");
+
+  // format todos on load
   formatTodoDates();
+
+  // strikethrough if completed
   const formatTodoIfCompleted = (todo, part) => {
     if (todo.completed) {
       if (part === "header") {
@@ -42,16 +53,31 @@ const TodoList = () => {
     }
     return todo.dueDate;
   };
+
+  // handles clicking new todo button
   const onNewTodoButtonClick = e => {
     e.preventDefault();
     setFormShowing(true);
   };
 
+  // handles todo name change
+  const handleTodoNameChange = e => {
+    setFormTodoName(e.target.value);
+  };
+
+  // handles todo priority change
+  const handleTodoPriorityChange = e => {
+    setFormTodoPriority(e.target.value);
+  };
+
+  // handles form submission
   const handleFormSubmit = e => {
     e.preventDefault();
     alert("Form submitted.");
+    setFormattedTodoDate(format(todoDate, "MM/dd/yyyy"));
     setFormShowing(false);
   };
+
   return (
     <div>
       <Typography
@@ -79,6 +105,27 @@ const TodoList = () => {
                 variant="standard"
                 label="Todo Name"
                 style={{ marginBottom: `${1}%` }}
+                value={formTodoName}
+                onChange={handleTodoNameChange}
+                required
+              />
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <DatePicker
+                  value={todoDate}
+                  onChange={setTodoDate}
+                  style={{ marginBottom: `${1}%` }}
+                  format="MM/dd/yyyy"
+                  label="Due Date (mm/dd/yyyy)"
+                  showTodayButton
+                />
+              </MuiPickersUtilsProvider>
+              <TextField
+                variant="standard"
+                label="Priority"
+                style={{ marginBottom: `${1}%` }}
+                type="number"
+                value={formTodoPriority}
+                onChange={handleTodoPriorityChange}
                 required
               />
               <Button type="submit" variant="outlined">
