@@ -108,7 +108,7 @@ class AppContextProvider extends Component {
     const newProject = {name: projectName, todos: []}
     this.setState(prevState => {
       return ({
-        projects: {...prevState.projects, newProject}
+        projects: [...prevState.projects, newProject]
       })
     })
   }
@@ -158,7 +158,8 @@ class AppContextProvider extends Component {
         formatTodoDates: this.formatTodoDates,
         toggleFormatted: this.toggleFormatted,
         addNewTodo: this.addNewTodo,
-        handleRemoveTodo: this.handleRemoveTodo}}
+        handleRemoveTodo: this.handleRemoveTodo,
+        addNewProject: this.addNewProject}}
       >
         {this.props.children}
       </AppContext.Provider>

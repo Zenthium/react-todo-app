@@ -6,3 +6,17 @@
   display: flex;
   flex-direction: column;
 }
+
+.newProjectForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.newProjectForm div {
+  color: white !important;
+}
+
+.newProjectForm label {
+  color: white !important;
+  border-color: white !important;
+}
