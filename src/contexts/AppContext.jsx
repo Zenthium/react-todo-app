@@ -65,7 +65,6 @@ class AppContextProvider extends Component {
     let todoArray = [...selectedProject.todos];
     todoArray.forEach(todo => {
       let todoDateArray = todo.dueDate.split("/");
-      console.log(todoDateArray);
       todo.comparisonDate = format(new Date(todoDateArray[2], todoDateArray[0] - 1, todoDateArray[1]), 'yyyy-MM-dd');
     });
     todoArray.sort(function(value1, value2){
@@ -131,7 +130,8 @@ class AppContextProvider extends Component {
         changeProjectStatus:this.changeProjectStatus, 
         getCurrentToggledProject:this.getCurrentToggledProject, 
         toggleTodoCompletion: this.toggleTodoCompletion,
-        formatTodoDates: this.formatTodoDates}}
+        formatTodoDates: this.formatTodoDates,
+        toggleFormatted: this.toggleFormatted}}
       >
         {this.props.children}
       </AppContext.Provider>

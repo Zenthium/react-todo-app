@@ -1,5 +1,13 @@
-import React, { useContext } from "react";
-import { Typography, Box, Checkbox } from "@material-ui/core";
+import React, { useContext, useState } from "react";
+import {
+  Typography,
+  Box,
+  Checkbox,
+  Button,
+  TextField,
+  FormControl,
+  FormHelperText
+} from "@material-ui/core";
 import { AppContext } from "../../contexts/AppContext";
 import "./TodoList.css";
 
@@ -9,6 +17,7 @@ const TodoList = () => {
     toggleTodoCompletion,
     formatTodoDates
   } = useContext(AppContext);
+  const [formShowing, setFormShowing] = useState(false);
   formatTodoDates();
   const formatTodoIfCompleted = (todo, part) => {
     if (todo.completed) {
@@ -33,6 +42,16 @@ const TodoList = () => {
     }
     return todo.dueDate;
   };
+  const onNewTodoButtonClick = e => {
+    e.preventDefault();
+    setFormShowing(true);
+  };
+
+  const handleFormSubmit = e => {
+    e.preventDefault();
+    alert("Form submitted.");
+    setFormShowing(false);
+  };
   return (
     <div>
       <Typography
@@ -45,6 +64,30 @@ const TodoList = () => {
       >
         {getCurrentToggledProject().name}
       </Typography>
+      <div className="newTodoDiv">
+        <Button
+          onClick={onNewTodoButtonClick}
+          variant="outlined"
+          style={{ marginTop: `${1}%`, marginBottom: `${1}%` }}
+        >
+          Add New Todo
+        </Button>
+        {formShowing && (
+          <FormControl>
+            <form onSubmit={handleFormSubmit} className="newTodoForm">
+              <TextField
+                variant="standard"
+                label="Todo Name"
+                style={{ marginBottom: `${1}%` }}
+                required
+              />
+              <Button type="submit" variant="outlined">
+                Create New Todo
+              </Button>
+            </form>
+          </FormControl>
+        )}
+      </div>
       <div>
         {getCurrentToggledProject().todos.map(todo => {
           return (
