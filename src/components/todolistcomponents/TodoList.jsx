@@ -4,9 +4,12 @@ import { AppContext } from "../../contexts/AppContext";
 import "./TodoList.css";
 
 const TodoList = () => {
-  const { getCurrentToggledProject, toggleTodoCompletion } = useContext(
-    AppContext
-  );
+  const {
+    getCurrentToggledProject,
+    toggleTodoCompletion,
+    formatTodoDates
+  } = useContext(AppContext);
+  formatTodoDates();
   const formatTodoIfCompleted = (todo, part) => {
     if (todo.completed) {
       if (part === "header") {

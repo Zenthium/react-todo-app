@@ -1,9 +1,11 @@
 import React, { Component, createContext } from 'react';
+import { format } from 'date-fns';
 
 export const AppContext = createContext();
 
 class AppContextProvider extends Component {
   state = { 
+    formatted: false,
     drawerShowing: false,
     projects: [
       {
@@ -55,6 +57,40 @@ class AppContextProvider extends Component {
     })
   }
 
+  formatTodoDates = () => {
+    const currentProjects = [...this.state.projects];
+    const project = this.getCurrentToggledProject();
+    const currentProjectIndex = currentProjects.indexOf(project);
+    let selectedProject = currentProjects[currentProjectIndex];
+    let todoArray = [...selectedProject.todos];
+    todoArray.forEach(todo => {
+      let todoDateArray = todo.dueDate.split("/");
+      console.log(todoDateArray);
+      todo.comparisonDate = format(new Date(todoDateArray[2], todoDateArray[0] - 1, todoDateArray[1]), 'yyyy-MM-dd');
+    });
+    todoArray.sort(function(value1, value2){
+      if (value1.comparisonDate < value2.comparisonDate) return -1;
+      if (value1.comparisonDate > value2.comparisonDate) return 1;
+
+      if (parseInt(value1.priority) < parseInt(value2.priority)) return -1;
+      if (parseInt(value1.priority) > parseInt(value2.priority)) return 1;
+    })
+    if (!this.state.formatted){
+      selectedProject.todos = todoArray;
+      currentProjects[currentProjectIndex] = selectedProject;
+      this.toggleFormatted();
+      this.setState({
+        projects: currentProjects
+      })
+    }
+  }
+
+  toggleFormatted = () => {
+    this.setState(prevState => {
+      return {formatted: !prevState.formatted}
+    })
+  }
+
   handleDrawerChange = () => {
     this.setState(prevState => {
       return {drawerShowing: !prevState.drawerShowing}
@@ -94,7 +130,8 @@ class AppContextProvider extends Component {
         addNewProject: this.addNewProject, 
         changeProjectStatus:this.changeProjectStatus, 
         getCurrentToggledProject:this.getCurrentToggledProject, 
-        toggleTodoCompletion: this.toggleTodoCompletion}}
+        toggleTodoCompletion: this.toggleTodoCompletion,
+        formatTodoDates: this.formatTodoDates}}
       >
         {this.props.children}
       </AppContext.Provider>
