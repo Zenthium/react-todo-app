@@ -7,38 +7,7 @@ class AppContextProvider extends Component {
   state = { 
     formatted: false,
     drawerShowing: false,
-    projects: [
-      {
-        name: "Default Project",
-        toggled: true,
-        todos: [
-          {
-            name: "Default Todo",
-            dueDate: "12/11/2019",
-            priority: 1,
-            completed: false
-          },
-          {
-            name: "Default Todo Two",
-            dueDate: "12/11/2019",
-            priority: 1,
-            completed: false
-          }
-        ]
-      },
-      {
-        name: "Default Project Two",
-        toggled: false,
-        todos: [
-          {
-            name: "Default Todo Two",
-            dueDate: "12/11/2019",
-            priority: 1,
-            completed: false
-          }
-        ]
-      }
-    ]
+    projects: JSON.parse(localStorage.getItem("projects"))
   }
 
   changeProjectStatus = project => {
@@ -106,11 +75,18 @@ class AppContextProvider extends Component {
 
   addNewProject = projectName => {
     const newProject = {name: projectName, todos: []}
-    this.setState(prevState => {
-      return ({
-        projects: [...prevState.projects, newProject]
-      })
+    const currentProjects = [...this.state.projects];
+    currentProjects.push(newProject);
+    this.setState({
+      projects: currentProjects
     })
+    localStorage.setItem("projects", JSON.stringify(this.state.projects))
+    // try {
+    //   localStorage.removeItem("projects");
+    //   localStorage.setItem("projects", JSON.stringify(this.state.projects));
+    // } catch (error) {
+    //   localStorage.setItem("projects", JSON.stringify(this.state.projects));
+    // }
   }
 
   addNewTodo = (project, todoName, todoDueDate, todoPriority) => {
@@ -122,6 +98,12 @@ class AppContextProvider extends Component {
     this.setState({
       projects: currentProjects
     })
+    try {
+      localStorage.removeItem("projects");
+      localStorage.setItem("projects", JSON.stringify(this.state.projects));
+    } catch (error) {
+      localStorage.setItem("projects", JSON.stringify(this.state.projects));
+    }
   }
 
   toggleTodoCompletion = (project, todo) => {
@@ -133,6 +115,12 @@ class AppContextProvider extends Component {
     this.setState({
       projects: currentProjects
     })
+    try {
+      localStorage.removeItem("projects");
+      localStorage.setItem("projects", JSON.stringify(this.state.projects));
+    } catch (error) {
+      localStorage.setItem("projects", JSON.stringify(this.state.projects));
+    }
   }
 
   handleRemoveTodo = (project, todo) => {
@@ -145,6 +133,12 @@ class AppContextProvider extends Component {
     this.setState({
       projects: currentProjects
     })
+    try {
+      localStorage.removeItem("projects");
+      localStorage.setItem("projects", JSON.stringify(this.state.projects));
+    } catch (error) {
+      localStorage.setItem("projects", JSON.stringify(this.state.projects));
+    }
   }
 
   handleRemoveProject = (project) => {
@@ -161,7 +155,17 @@ class AppContextProvider extends Component {
     this.setState({
       projects: newProjectArray
     })
+    try {
+      localStorage.removeItem("projects");
+      localStorage.setItem("projects", JSON.stringify(this.state.projects));
+    } catch (error) {
+      localStorage.setItem("projects", JSON.stringify(this.state.projects));
+    }
   }
+  // window.addEventListener("beforeunload", (ev) => {
+  //   ev.preventDefault();
+  //   localStorage;
+  // })
 
 
   render() { 
