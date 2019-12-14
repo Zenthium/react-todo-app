@@ -3,25 +3,33 @@ import { Typography, Box, Checkbox } from "@material-ui/core";
 import { AppContext } from "../../contexts/AppContext";
 import "./TodoList.css";
 
-const TodoList = project => {
+const TodoList = () => {
   const { getCurrentToggledProject, toggleTodoCompletion } = useContext(
     AppContext
   );
-
   const formatTodoIfCompleted = (todo, part) => {
     if (todo.completed) {
       if (part === "header") {
         return <strike>{todo.name}</strike>;
+      }
+      if (part === "priority") {
+        return (
+          <strike>
+            {"Priority: "}
+            {todo.priority}
+          </strike>
+        );
       }
       return <strike>{todo.dueDate}</strike>;
     }
     if (part === "header") {
       return todo.name;
     }
+    if (part === "priority") {
+      return ` Priority: ${todo.priority}`;
+    }
     return todo.dueDate;
   };
-  // const currentProject = getCurrentToggledProject();
-  // return <h1>{getCurrentToggledProject().name}</h1>;
   return (
     <div>
       <Typography
@@ -55,12 +63,25 @@ const TodoList = project => {
                   />
                 </div>
                 <div className="todoInfo">
-                  <Typography variant="h6" fontWeight="fontWeightBold">
+                  <Typography
+                    variant="h6"
+                    fontWeight="fontWeightBold"
+                    align="left"
+                  >
                     {formatTodoIfCompleted(todo, "header")}
                   </Typography>
-                  <Typography variant="subtitle1" align="left">
-                    {formatTodoIfCompleted(todo, "info")}
-                  </Typography>
+                  <div className="todoDetails">
+                    <Typography
+                      variant="subtitle2"
+                      align="left"
+                      style={{ marginRight: `${1}%` }}
+                    >
+                      {formatTodoIfCompleted(todo, "info")}
+                    </Typography>
+                    <Typography variant="subtitle2" align="left">
+                      {formatTodoIfCompleted(todo, "priority")}
+                    </Typography>
+                  </div>
                 </div>
               </div>
             </Box>
@@ -68,14 +89,6 @@ const TodoList = project => {
         })}
       </div>
     </div>
-
-    // {getCurrentToggledProject().todos.map(todo => {
-    //   return (
-    //     <Box shadow>
-    //       <Typography variant="body1">{todo.name}</Typography>
-    //     </Box>
-    //   );
-    // })}
   );
 };
 

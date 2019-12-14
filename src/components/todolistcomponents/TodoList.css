@@ -6,7 +6,8 @@
 .todoInfo {
   display: flex;
   flex-direction: column;
-  margin-right: 80%;
+  margin-right: 70%;
+  width: 35%;
 }
 
 .todoBoxes {
@@ -14,6 +15,10 @@
   flex-direction: row;
 }
 
+.todoDetails {
+  display: flex;
+  flex-direction: row;
+}
 /* .todoContent {
   display: flex;
   flex-direction: row;
