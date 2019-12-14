@@ -113,6 +113,17 @@ class AppContextProvider extends Component {
     })
   }
 
+  addNewTodo = (project, todoName, todoDueDate, todoPriority) => {
+    const currentProjects = [...this.state.projects];
+    const currentProjectIndex = currentProjects.indexOf(project);
+    let currentProject = currentProjects[currentProjectIndex];
+    currentProject.todos.push({name: todoName, dueDate: todoDueDate, priority: todoPriority, completed: false})
+    currentProjects[currentProjectIndex] = currentProject
+    this.setState({
+      projects: currentProjects
+    })
+  }
+
   toggleTodoCompletion = (project, todo) => {
     const currentProjects = [...this.state.projects]
     const selectedProjectIndex = currentProjects.indexOf(project);
@@ -131,7 +142,8 @@ class AppContextProvider extends Component {
         getCurrentToggledProject:this.getCurrentToggledProject, 
         toggleTodoCompletion: this.toggleTodoCompletion,
         formatTodoDates: this.formatTodoDates,
-        toggleFormatted: this.toggleFormatted}}
+        toggleFormatted: this.toggleFormatted,
+        addNewTodo: this.addNewTodo}}
       >
         {this.props.children}
       </AppContext.Provider>

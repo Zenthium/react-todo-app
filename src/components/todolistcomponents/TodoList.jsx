@@ -18,13 +18,14 @@ const TodoList = () => {
   const {
     getCurrentToggledProject,
     toggleTodoCompletion,
-    formatTodoDates
+    formatTodoDates,
+    addNewTodo,
+    toggleFormatted
   } = useContext(AppContext);
   const [formShowing, setFormShowing] = useState(false);
   const [formTodoName, setFormTodoName] = useState("");
   const [formTodoPriority, setFormTodoPriority] = useState(0);
   const [todoDate, setTodoDate] = useState(new Date());
-  const [formattedTodoDate, setFormattedTodoDate] = useState("");
 
   // format todos on load
   formatTodoDates();
@@ -73,8 +74,17 @@ const TodoList = () => {
   // handles form submission
   const handleFormSubmit = e => {
     e.preventDefault();
-    alert("Form submitted.");
-    setFormattedTodoDate(format(todoDate, "MM/dd/yyyy"));
+    const formattedDate = format(todoDate, "MM/dd/yyyy");
+    toggleFormatted();
+    addNewTodo(
+      getCurrentToggledProject(),
+      formTodoName,
+      formattedDate,
+      formTodoPriority
+    );
+    setFormTodoPriority(0);
+    setFormTodoName("");
+    setTodoDate(new Date());
     setFormShowing(false);
   };
 
