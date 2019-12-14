@@ -16,7 +16,7 @@ class AppContextProvider extends Component {
             name: "Default Todo",
             dueDate: "12/11/2019",
             priority: 1,
-            completed: true
+            completed: false
           },
           {
             name: "Default Todo Two",
@@ -134,6 +134,20 @@ class AppContextProvider extends Component {
       projects: currentProjects
     })
   }
+
+  handleRemoveTodo = (project, todo) => {
+    const currentProjects = [...this.state.projects]
+    const selectedProjectIndex = currentProjects.indexOf(project);
+    const selectedProject = currentProjects[selectedProjectIndex];
+    let newTodoArray = selectedProject.todos.filter(currentTodo => currentTodo !== todo);
+    selectedProject.todos = newTodoArray;
+    currentProjects[selectedProjectIndex] = selectedProject;
+    this.setState({
+      projects: currentProjects
+    })
+  }
+
+
   render() { 
     return ( 
       <AppContext.Provider value={{...this.state, 
@@ -143,7 +157,8 @@ class AppContextProvider extends Component {
         toggleTodoCompletion: this.toggleTodoCompletion,
         formatTodoDates: this.formatTodoDates,
         toggleFormatted: this.toggleFormatted,
-        addNewTodo: this.addNewTodo}}
+        addNewTodo: this.addNewTodo,
+        handleRemoveTodo: this.handleRemoveTodo}}
       >
         {this.props.children}
       </AppContext.Provider>

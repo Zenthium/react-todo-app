@@ -10,9 +10,9 @@ import {
   FormHelperText
 } from "@material-ui/core";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { format } from "date-fns";
 import { AppContext } from "../../contexts/AppContext";
 import "./TodoList.css";
-import { format } from "date-fns";
 
 const TodoList = () => {
   const {
@@ -20,7 +20,8 @@ const TodoList = () => {
     toggleTodoCompletion,
     formatTodoDates,
     addNewTodo,
-    toggleFormatted
+    toggleFormatted,
+    handleRemoveTodo
   } = useContext(AppContext);
   const [formShowing, setFormShowing] = useState(false);
   const [formTodoName, setFormTodoName] = useState("");
@@ -99,7 +100,7 @@ const TodoList = () => {
   return (
     <div>
       <Typography
-        variant="h3"
+        variant="h4"
         style={{
           paddingTop: `${2}%`,
           paddingBottom: `${2}%`,
@@ -107,6 +108,13 @@ const TodoList = () => {
         }}
       >
         {getCurrentToggledProject().name}
+        <br />
+        <Button
+          variant="outlined"
+          style={{ color: "red", borderColor: "red", marginLeft: `${1}%` }}
+        >
+          Remove Project
+        </Button>
       </Typography>
       <div className="newTodoDiv">
         <Button
@@ -204,6 +212,17 @@ const TodoList = () => {
                       {formatTodoIfCompleted(todo, "priority")}
                     </Typography>
                   </div>
+                </div>
+                <div className="editAndRemoveButtons">
+                  <Button>Edit Todo</Button>
+                  <Button
+                    onClick={() => {
+                      handleRemoveTodo(getCurrentToggledProject(), todo);
+                    }}
+                    style={{ color: "red" }}
+                  >
+                    Remove Todo
+                  </Button>
                 </div>
               </div>
             </Box>

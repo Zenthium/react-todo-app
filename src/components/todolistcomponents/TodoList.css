@@ -6,7 +6,6 @@
 .todoInfo {
   display: flex;
   flex-direction: column;
-  margin-right: 70%;
   width: 35%;
 }
 
@@ -30,4 +29,19 @@
 .newTodoForm {
   display: flex;
   flex-direction: column;
+}
+
+.editAndRemoveButtons {
+  justify-self: right;
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: 3%;
+}
+
+.editAndRemoveButtons button {
+  /* padding-left: 3%;
+  padding-right: 3%; */
+  /* margin-left: 3%;
+  margin-right: 3%; */
 }
