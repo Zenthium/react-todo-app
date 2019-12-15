@@ -4,26 +4,18 @@ import { format } from 'date-fns';
 export const AppContext = createContext();
 
 class AppContextProvider extends Component {
-  checkLocalStorage = () => {
-    if (!localStorage.projects) {
-      return [
-        {
-          name: "Default Project",
-          toggled: true,
-          todos: [
 
-          ]
-        }
-      ]
-    } else {
-      return JSON.parse(localStorage.getItem("projects"))
-    }
-  }
-  
   state = { 
     formatted: false,
     drawerShowing: false,
-    projects: this.checkLocalStorage()
+    projects: localStorage.getItem("projects") !== null ? JSON.parse(localStorage.getItem("projects")) : [
+      {
+        name: "Default Project",
+        toggled: true,
+        todos: [
+        ]
+      }
+    ]
   }
 
   
